@@ -1,0 +1,8 @@
+/* Write your CSS here */
+.latestMatchCard {
+  background-color: #1e293b;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  color: #ffffff;
+}

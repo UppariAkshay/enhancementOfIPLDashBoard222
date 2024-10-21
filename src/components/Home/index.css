@@ -1,0 +1,22 @@
+/* Write your CSS here */
+.teamsContainer {
+  list-style: none;
+  outline: none;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.homeContainer {
+  background-image: url('https://assets.ccbp.in/frontend/react-js/ipl-dashboard-lg-bg.png');
+  background-size: cover;
+  font-family: 'Bree Serif';
+  color: #ffffff;
+}
+
+.iplTeamsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
