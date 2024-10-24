@@ -3,6 +3,7 @@ import {Component} from 'react'
 import Loader from 'react-loader-spinner'
 import LatestMatch from '../LatestMatch'
 import MatchCard from '../MatchCard'
+import Piechart from '../Piechart'
 import './index.css'
 
 class TeamMatches extends Component {
@@ -23,7 +24,7 @@ class TeamMatches extends Component {
     console.log(data)
 
     const dataInCamelCase = {
-      teamBannerUrl: data.team_banner_url,
+      team_banner_url: data.team_banner_url,
       latestMatchDetails: {
         umpires: data.latest_match_details.umpires,
         result: data.latest_match_details.result,
@@ -32,7 +33,7 @@ class TeamMatches extends Component {
         date: data.latest_match_details.date,
         venue: data.latest_match_details.venue,
         competingTeam: data.latest_match_details.competing_team,
-        competingTeamLogo: data.latest_match_details.competing_team_logo,
+        competingTeamlogo: data.latest_match_details.competing_team_logo,
         firstInnings: data.latest_match_details.first_innings,
         secondInnings: data.latest_match_details.second_innings,
         matchStatus: data.latest_match_details.match_status,
@@ -45,19 +46,21 @@ class TeamMatches extends Component {
         date: eachData.date,
         venue: eachData.venue,
         competingTeam: eachData.competing_team,
-        competingTeamLogo: eachData.competing_team_logo,
+        competing_team_logo: eachData.competing_team_logo,
         firstInnings: eachData.first_innings,
         secondInnings: eachData.second_innings,
         matchStatus: eachData.match_status,
       })),
     }
     console.log('teamMatchesComponent')
-    console.log(dataInCamelCase)
+    console.log(response)
 
-    this.setState({
-      teamInfo: dataInCamelCase,
-      isLoading: false,
-    })
+    if (response.ok === true) {
+      this.setState({
+        teamInfo: dataInCamelCase,
+        isLoading: false,
+      })
+    }
   }
 
   displayLatestMatches = () => {
@@ -66,7 +69,35 @@ class TeamMatches extends Component {
 
     return (
       <>
-        <LatestMatch latestMatchDetails={latestMatchDetails} />
+        <img alt="team banner" src={teamInfo.team_banner_url} />
+        <h1>Latest Matches</h1>
+        {this.displayStatistics()}
+        <ul className="latestMatchCard">
+          <li>
+            <li>
+              <p>{latestMatchDetails.competing_team}</p>
+              <p>{latestMatchDetails.date}</p>
+            </li>
+            <li>
+              <p>{latestMatchDetails.venue}</p>
+              <p>{latestMatchDetails.result}</p>
+            </li>
+          </li>
+          <img
+            alt={`latest match ${latestMatchDetails.competing_team}`}
+            src={latestMatchDetails.competing_team_logo}
+          />
+          <li>
+            <p>First Innings</p>
+            <p>{latestMatchDetails.firstInnings}</p>
+            <p>Second Innings</p>
+            <p>{latestMatchDetails.secondInnings}</p>
+            <p>Man of the Match</p>
+            <p>{latestMatchDetails.manOfTheMatch}</p>
+            <p>Umpires</p>
+            <p>{latestMatchDetails.umpires}</p>
+          </li>
+        </ul>
         <ul>
           {recentMatches.map(eachMatch => (
             <MatchCard key={eachMatch.id} allMatches={eachMatch} />
@@ -77,20 +108,31 @@ class TeamMatches extends Component {
   }
 
   displayLoading = () => (
-    <div>
-      <Loader type="Oval" color="#ffffff" height={50} width={50} />
+    <div testid="loader">
+      {' '}
+      <Loader type="Oval" color="#ffffff" height={50} width={50} />{' '}
     </div>
   )
 
+  onClickBack = () => {
+    const {history} = this.props
+    history.replace('/')
+  }
+
+  displayStatistics = () => {
+    const {teamInfo} = this.state
+
+    return <Piechart teamInfo={teamInfo} />
+  }
+
   render() {
     const {isLoading, teamInfo} = this.state
-    const {teamBannerUrl} = teamInfo
+    const {team_banner_url} = teamInfo
 
     return (
       <div className="teamMatchesContainer">
-        <img alt="team banner" src={teamBannerUrl} />
-        <h1>Latest Matches</h1>
         {isLoading ? this.displayLoading() : this.displayLatestMatches()}
+        <button onClick={this.onClickBack}>Back</button>
       </div>
     )
   }

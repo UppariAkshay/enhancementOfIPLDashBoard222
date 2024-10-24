@@ -1,6 +1,13 @@
 /* Write your CSS here */
-.teamMatchesContainer
-{
-    background-color: #a4261d;
-    padding: 30px;
+.teamMatchesContainer {
+  background-color: #a4261d;
+  padding: 30px;
+}
+
+.latestMatchCard {
+  background-color: #1e293b;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  color: #ffffff;
 }

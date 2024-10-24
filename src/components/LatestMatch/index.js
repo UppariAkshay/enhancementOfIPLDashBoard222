@@ -13,20 +13,22 @@ const LatestMatch = props => {
     manOfTheMatch,
     umpires,
   } = latestMatchDetails
-  console.log('latestMatch component')
-  console.log(latestMatchDetails)
 
   return (
-    <div className="latestMatchCard">
-      <div>
-        <h1>{competingTeam}</h1>
-        <p>{date}</p>
-        <p>{venue}</p>
-        <p>{result}</p>
-      </div>
+    <div>
+      <ul>
+        <li>
+          <p>{competingTeam}</p>
+          <p>{date}</p>
+        </li>
+        <li>
+          <p>{venue}</p>
+          <p>{result}</p>
+        </li>
+      </ul>
       <img
         alt={`latest match ${latestMatchDetails.competingTeam}`}
-        src={latestMatchDetails.competingTeamLogo}
+        src={latestMatchDetails.competingTeamlogo}
       />
       <div>
         <p>First Innings</p>

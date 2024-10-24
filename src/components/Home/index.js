@@ -32,8 +32,9 @@ class Home extends Component {
   }
 
   displayLoading = () => (
-    <div>
-      <Loader type="Oval" color="#ffffff" height={50} width={50} />
+    <div testid="loader">
+      {' '}
+      <Loader type="Oval" color="#ffffff" height={50} width={50} />{' '}
     </div>
   )
 
